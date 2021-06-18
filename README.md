@@ -1,4 +1,4 @@
-# [CStar](/tree/main/CStar/include)
+# [CStar](https://github.com/DeveloperX19/CStar/tree/main/CStar/include)
 
 C* is a c++ library adding all kinds of useful functions, tools, data-structures, etc. 
 The goal of this project is to create a reliable independant and lightweight library 
