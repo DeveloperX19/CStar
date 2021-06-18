@@ -1,0 +1,8 @@
+#ifndef CSTARLIBRARY_MASK
+#define CSTARLIBRARY_MASK
+
+
+
+
+
+#endif
