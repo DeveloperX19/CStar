@@ -28,6 +28,7 @@ SOFTWARE.
  * C* Library, 2021
  * Version 0.0.1
  * Project Link: https://github.com/DeveloperX19/CStar
+ * Documentation: https://github.com/DeveloperX19/CStar/wiki
  */
 
 
@@ -128,7 +129,6 @@ SOFTWARE.
  /*
   *	Official C-Star library
   *	This library contains data structures, functions and other tools for c++ projects.
-  *	The documentation is found at the top of the included header file (csrlib.h).
   */
 namespace csr
 {
@@ -368,10 +368,8 @@ namespace csr
 
 	namespace tool
 	{
-		/**
-		* A Simple Timer with functions for stopwatching & scheduling
-		* @param timeScale - the rouge scale of time wanted (e.g. tts:ms -> milliseconds)
-		*/
+		///A Simple Timer with functions for stopwatching & scheduling
+		///timeScale - the roughe scale of time wanted (e.g. tts:ms -> milliseconds)
 		template <typename timeScale>
 		class Timer<timeScale, typename std::enable_if<
 			std::is_same<timeScale, std::nano>::value ||
