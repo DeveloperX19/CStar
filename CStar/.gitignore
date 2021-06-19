@@ -1,11 +1,11 @@
-#Folders
+# Folders
 
 .vs
 Debug
 Release
 x64
 
-#VS Files
+# VS Files
 
 CStar.cpp
 CStar.sln
@@ -13,6 +13,6 @@ CStar.vcxproj
 CStar.vcxproj.filters
 CStar.vcxproj.user
 
-#Other
+# Other
 
 Plan.txt
