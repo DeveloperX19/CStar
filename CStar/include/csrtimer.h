@@ -6,7 +6,7 @@ namespace csr
 {
 	namespace tool
 	{
-		///A Simple Timer with functions for stopwatching & scheduling
+		///Simple Timer with functions for stopwatching & scheduling
 		///timeScale - the roughe scale of time wanted (e.g. tts:ms -> milliseconds)
 		template <typename timeScale>
 		class Timer<timeScale, typename std::enable_if<
@@ -51,8 +51,8 @@ namespace csr
 				}
 			}
 
-			///Returns the (time * timeScale) that the Timer has been active(unpaused) for
 			csrndc("useless call of function: long long getTime()")
+			///Returns the (time * timeScale) that the Timer has been active(unpaused) for
 			constexpr long long getTime() const noexcept
 			{
 				if (active)

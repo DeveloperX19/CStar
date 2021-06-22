@@ -143,31 +143,52 @@ namespace csr
 		}
 	}
 
+	namespace math
+	{
+		namespace tfloat
+		{
+			//#include "csrtfloat.h"
+			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
+			bool equal(BASE a, BASE b) noexcept;
+			//#include "csrtfloat.h"
+			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
+			bool not_equal(BASE a, BASE b) noexcept;
+			//#include "csrtfloat.h"
+			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
+			bool greater(BASE a, BASE b) noexcept;
+			//#include "csrtfloat.h"
+			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
+			bool less(BASE a, BASE b) noexcept;
+			//#include "csrtfloat.h"
+			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
+			bool greater_equal(BASE a, BASE b) noexcept;
+			//#include "csrtfloat.h"
+			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
+			bool less_equal(BASE a, BASE b) noexcept;
+		}
+	}
 
 	namespace data
 	{
+		//#include "csrmask.h"
 		template <typename baseType, typename _ = baseType> struct mask;
 
 	}
 
 	namespace util
 	{
-		namespace tfloat
-		{
-			///...
-		}
 		namespace enumc
 		{
-			//operator overload for scoped enums
+			//#include "csrutil.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator| (const enumT& a, const enumT& b);
-			//operator overload for scoped enums
+			//#include "csrutil.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator& (const enumT& a, const enumT& b);
-			//operator overload for scoped enums
+			//#include "csrutil.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator^ (const enumT& a, const enumT& b);
-			//operator overload for scoped enums
+			//#include "csrutil.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator~ (const enumT& a);
 		}
@@ -175,6 +196,7 @@ namespace csr
 		
 	namespace tool
 	{
+		//#include "csrtimer.h"
 		template <typename timeScale = csr::args::TTS::ms, typename _ = timeScale> class Timer;
 	}
 }
