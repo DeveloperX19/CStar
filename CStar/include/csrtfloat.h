@@ -15,7 +15,7 @@ namespace csr
 			///BASE - the type of a and b
 			///nUnitAbsTol - number of units of absolute tolerance to check similarity with
 			///nUnitRelTol - number of units of relative tolerance to check similarity with
-			///ignoreIEC559 - this funtion was designed to work with the IEC669 standard. if you have a different standard,
+			///ignoreIEC559 - this funtion was designed to work with the IEC559 standard. if you have a different standard,
 			///set this to true to use this function anyways
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename std::enable_if<
 				std::is_floating_point<BASE>::value && (std::numeric_limits<BASE>::is_iec559 || ignoreIEC559)
@@ -33,7 +33,7 @@ namespace csr
 			///BASE - the type of a and b
 			///nUnitAbsTol - number of units of absolute tolerance to check similarity with
 			///nUnitRelTol - number of units of relative tolerance to check similarity with
-			///ignoreIEC559 - this funtion was designed to work with the IEC669 standard. if you have a different standard,
+			///ignoreIEC559 - this funtion was designed to work with the IEC559 standard. if you have a different standard,
 			///set this to true to use this function anyways
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename std::enable_if<
 				std::is_floating_point<BASE>::value && (std::numeric_limits<BASE>::is_iec559 || ignoreIEC559)
@@ -52,7 +52,7 @@ namespace csr
 			///BASE - the type of a and b
 			///nUnitAbsTol - number of units of absolute tolerance to check similarity with
 			///nUnitRelTol - number of units of relative tolerance to check similarity with
-			///ignoreIEC559 - this funtion was designed to work with the IEC669 standard. if you have a different standard,
+			///ignoreIEC559 - this funtion was designed to work with the IEC559 standard. if you have a different standard,
 			///set this to true to use this function anyways
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename std::enable_if<
 				std::is_floating_point<BASE>::value && (std::numeric_limits<BASE>::is_iec559 || ignoreIEC559)
@@ -70,7 +70,7 @@ namespace csr
 			///BASE - the type of a and b
 			///nUnitAbsTol - number of units of absolute tolerance to check similarity with
 			///nUnitRelTol - number of units of relative tolerance to check similarity with
-			///ignoreIEC559 - this funtion was designed to work with the IEC669 standard. if you have a different standard,
+			///ignoreIEC559 - this funtion was designed to work with the IEC559 standard. if you have a different standard,
 			///set this to true to use this function anyways
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename std::enable_if<
 				std::is_floating_point<BASE>::value && (std::numeric_limits<BASE>::is_iec559 || ignoreIEC559)
@@ -87,7 +87,7 @@ namespace csr
 			///BASE - the type of a and b
 			///nUnitAbsTol - number of units of absolute tolerance to check similarity with
 			///nUnitRelTol - number of units of relative tolerance to check similarity with
-			///ignoreIEC559 - this funtion was designed to work with the IEC669 standard. if you have a different standard,
+			///ignoreIEC559 - this funtion was designed to work with the IEC559 standard. if you have a different standard,
 			///set this to true to use this function anyways
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename std::enable_if<
 				std::is_floating_point<BASE>::value && (std::numeric_limits<BASE>::is_iec559 || ignoreIEC559)
@@ -100,7 +100,7 @@ namespace csr
 			///BASE - the type of a and b
 			///nUnitAbsTol - number of units of absolute tolerance to check similarity with
 			///nUnitRelTol - number of units of relative tolerance to check similarity with
-			///ignoreIEC559 - this funtion was designed to work with the IEC669 standard. if you have a different standard,
+			///ignoreIEC559 - this funtion was designed to work with the IEC559 standard. if you have a different standard,
 			///set this to true to use this function anyways
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename std::enable_if<
 				std::is_floating_point<BASE>::value && (std::numeric_limits<BASE>::is_iec559 || ignoreIEC559)
@@ -113,7 +113,7 @@ namespace csr
 			///BASE - the type of a and b
 			///nUnitAbsTol - number of units of absolute tolerance to check similarity with
 			///nUnitRelTol - number of units of relative tolerance to check similarity with
-			///ignoreIEC559 - this funtion was designed to work with the IEC669 standard. if you have a different standard,
+			///ignoreIEC559 - this funtion was designed to work with the IEC559 standard. if you have a different standard,
 			///set this to true to use this function anyways
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename std::enable_if<
 				std::is_floating_point<BASE>::value && (std::numeric_limits<BASE>::is_iec559 || ignoreIEC559)
@@ -126,7 +126,7 @@ namespace csr
 			///BASE - the type of a and b
 			///nUnitAbsTol - number of units of absolute tolerance to check similarity with
 			///nUnitRelTol - number of units of relative tolerance to check similarity with
-			///ignoreIEC559 - this funtion was designed to work with the IEC669 standard. if you have a different standard,
+			///ignoreIEC559 - this funtion was designed to work with the IEC559 standard. if you have a different standard,
 			///set this to true to use this function anyways
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename std::enable_if<
 				std::is_floating_point<BASE>::value && (std::numeric_limits<BASE>::is_iec559 || ignoreIEC559)
@@ -139,7 +139,7 @@ namespace csr
 			///BASE - the type of a and b
 			///nUnitAbsTol - number of units of absolute tolerance to check similarity with
 			///nUnitRelTol - number of units of relative tolerance to check similarity with
-			///ignoreIEC559 - this funtion was designed to work with the IEC669 standard. if you have a different standard,
+			///ignoreIEC559 - this funtion was designed to work with the IEC559 standard. if you have a different standard,
 			///set this to true to use this function anyways
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename std::enable_if<
 				std::is_floating_point<BASE>::value && (std::numeric_limits<BASE>::is_iec559 || ignoreIEC559)
