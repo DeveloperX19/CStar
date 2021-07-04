@@ -127,5 +127,4 @@ namespace csr
 }
 
 
-#undef CSR_TEMP_IMPL_MASK
 #endif

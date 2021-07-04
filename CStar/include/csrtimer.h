@@ -2,8 +2,6 @@
 #define CSTARLIBRARY_TIMER
 #include "csrlib.h"
 
-
-
 namespace csr
 {
 	namespace tool
@@ -112,6 +110,4 @@ namespace csr
 }
 
 
-
-#undef CSR_TEMP_IMPL_TIMER
 #endif

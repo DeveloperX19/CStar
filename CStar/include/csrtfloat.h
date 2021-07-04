@@ -3,7 +3,6 @@
 #include "csrlib.h"
 
 #include <cstdint>
-#include <type_traits>
 #include <limits>
 
 namespace csr
