@@ -2,26 +2,6 @@
 #define CSTARLIBRARY_TIMER
 #include "csrlib.h"
 
-#define CSR_TEMP_IMPL_TIMER(RETURNTYPE) \
-		template <typename timeScale> \
-		RETURNTYPE Timer<timeScale, typename std::enable_if< \
-			std::is_same<timeScale, std::nano>::value || \
-			std::is_same<timeScale, std::micro>::value || \
-			std::is_same<timeScale, std::milli>::value || \
-			std::is_same<timeScale, std::ratio<1>>::value || \
-			std::is_same<timeScale, std::ratio<60, 1>>::value || \
-			std::is_same<timeScale, std::ratio<3600, 1>>::value \
-			, timeScale>::type>
-#define CSR_TEMP_IMPL_TIMER2 \
-		template <typename timeScale> \
-		Timer<timeScale, typename std::enable_if< \
-			std::is_same<timeScale, std::nano>::value || \
-			std::is_same<timeScale, std::micro>::value || \
-			std::is_same<timeScale, std::milli>::value || \
-			std::is_same<timeScale, std::ratio<1>>::value || \
-			std::is_same<timeScale, std::ratio<60, 1>>::value || \
-			std::is_same<timeScale, std::ratio<3600, 1>>::value \
-			, timeScale>::type>
 
 
 namespace csr
@@ -30,14 +10,19 @@ namespace csr
 	{
 		///Simple Timer with functions for stopwatching & scheduling
 		///timeScale - the roughe scale of time wanted (e.g. tts:ms -> milliseconds)
-		CSR_TEMP_IMPL_TIMER(class)
+		template<typename timeScale>
+		class Timer<timeScale>
 		{
 			std::chrono::steady_clock::time_point tOld;
 			std::chrono::steady_clock::time_point tClock;
 			std::chrono::duration<long long, timeScale> tTotal;
 			bool active;
 		public:
-			Timer();
+			///Timer is paused in constructor
+			Timer() :
+				tClock{ std::chrono::steady_clock::time_point::max() },
+				tTotal{ std::chrono::duration<long long, timeScale>(0) },
+				active{ false } {}
 			void reset() noexcept;
 			void resume() noexcept;
 			void pause() noexcept;
@@ -52,20 +37,16 @@ namespace csr
 
 		
 		///Resets and Pauses the Timer 
-		CSR_TEMP_IMPL_TIMER(void)::reset() noexcept
+		template<typename timeScale>
+		void Timer<timeScale>::reset() noexcept
 		{
 			active = false;
 			tTotal = std::chrono::duration<long long, timeScale>(0);
 		}
 
-		///Timer is paused in constructor
-		CSR_TEMP_IMPL_TIMER2::Timer() : 
-			tClock{ std::chrono::steady_clock::time_point::max() }, 
-			tTotal{ std::chrono::duration<long long, timeScale>(0) }, 
-			active{ false } {}
-
 		///Resumes the Timer
-		CSR_TEMP_IMPL_TIMER(void)::resume() noexcept
+		template<typename timeScale>
+		void Timer<timeScale>::resume() noexcept
 		{
 			if (!active)
 			{
@@ -75,7 +56,8 @@ namespace csr
 		}
 
 		///Pauses the Timer
-		CSR_TEMP_IMPL_TIMER(void)::pause() noexcept
+		template<typename timeScale>
+		void Timer<timeScale>::pause() noexcept
 		{
 			if (active)
 			{
@@ -85,7 +67,8 @@ namespace csr
 		}
 
 		///Returns the (time * timeScale) that the Timer has been active(unpaused) for
-		CSR_TEMP_IMPL_TIMER(constexpr long long)::getTime() const noexcept
+		template<typename timeScale>
+		constexpr long long Timer<timeScale>::getTime() const noexcept
 		{
 			if (active)
 				return (tTotal + std::chrono::duration_cast<std::chrono::duration<long long, timeScale>>(std::chrono::steady_clock::now() - tOld)).count();
@@ -94,7 +77,8 @@ namespace csr
 		}
 
 		///Stops execution for (t * timeScale) seconds
-		CSR_TEMP_IMPL_TIMER(void)::wait(unsigned long long t) noexcept
+		template<typename timeScale>
+		void Timer<timeScale>::wait(unsigned long long t) noexcept
 		{
 			std::chrono::steady_clock::time_point tStart = std::chrono::steady_clock::now();
 			float ms = (float)t * (float)timeScale::num * 1000.0f / (float)timeScale::den;
@@ -104,14 +88,16 @@ namespace csr
 		}
 
 		///Resets the clock
-		CSR_TEMP_IMPL_TIMER(void)::clock() noexcept
+		template<typename timeScale>
+		void Timer<timeScale>::clock() noexcept
 		{
 			tClock = std::chrono::steady_clock::now();
 		}
-
+		
 		///Stops execution until (t * timeScale) seconds have passed since last call of clock(...)
 		///- First call to clock(t) will only reset the clock
-		CSR_TEMP_IMPL_TIMER(void)::clock(unsigned long long t) noexcept
+		template<typename timeScale>
+		void Timer<timeScale>::clock(unsigned long long t) noexcept
 		{
 			long long dt = std::chrono::duration_cast<std::chrono::duration<unsigned long long, timeScale>>(std::chrono::steady_clock::now() - tClock).count();
 			float ms = (float)(t - dt) * (float)timeScale::num * 1000.0f / (float)timeScale::den;

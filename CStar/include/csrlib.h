@@ -171,7 +171,11 @@ namespace csr
 	namespace data
 	{
 		//#include "csrmask.h"
-		template <typename baseType, typename _ = baseType> struct mask;
+		template <typename baseType, typename = typename std::enable_if< \
+			std::is_enum<baseType>::value&& \
+			!std::is_convertible<baseType, std::underlying_type_t<baseType>>::value&& \
+			!std::is_same<std::underlying_type_t<baseType>, bool>::value \
+			, baseType>::type> struct mask;
 
 	}
 
@@ -179,16 +183,12 @@ namespace csr
 	{
 		namespace enumc
 		{
-			//#include "csrutil.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator| (const enumT& a, const enumT& b);
-			//#include "csrutil.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator& (const enumT& a, const enumT& b);
-			//#include "csrutil.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator^ (const enumT& a, const enumT& b);
-			//#include "csrutil.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator~ (const enumT& a);
 		}
@@ -197,7 +197,14 @@ namespace csr
 	namespace tool
 	{
 		//#include "csrtimer.h"
-		template <typename timeScale = csr::args::TTS::ms, typename _ = timeScale> class Timer;
+		template <typename timeScale = csr::args::TTS::ms, typename = typename std::enable_if< \
+			std::is_same<timeScale, std::nano>::value || \
+			std::is_same<timeScale, std::micro>::value || \
+			std::is_same<timeScale, std::milli>::value || \
+			std::is_same<timeScale, std::ratio<1>>::value || \
+			std::is_same<timeScale, std::ratio<60, 1>>::value || \
+			std::is_same<timeScale, std::ratio<3600, 1>>::value \
+			, bool>::type> class Timer;
 	}
 }
 
