@@ -2,11 +2,14 @@
 #define CSTARLIBRARY_MASK
 #include "csrlib.h"
 
+#include <ostream>
+
 namespace csr
 {
 	namespace data
 	{
-
+		template<typename baseType> class mask<baseType>;
+		template<typename baseType> std::ostream& operator<<(std::ostream& os, const mask<baseType>& m);
 
 		///Simple Bitmask for enums that can be used for 
 		///easy bit-manipulation and comparisons
@@ -59,6 +62,8 @@ namespace csr
 
 			csrndc("useless call of function: int capacity()")
 			inline static constexpr int capacity() noexcept;
+			
+			friend std::ostream& operator<< <>(std::ostream& os, const mask<baseType>& m);
 		};
 
 		///sets all bits
@@ -122,6 +127,13 @@ namespace csr
 		inline constexpr int mask<baseType>::capacity() noexcept
 		{
 			return sizeof(baseType) * 8;
+		}
+
+		template<typename baseType>
+		std::ostream& operator<<(std::ostream& os, const mask<baseType>& m)
+		{
+			os << "[mask: 0b" << std::bitset<sizeof(baseType) * 8>(m.flags) << "; " << (unsigned long long)m.flags << "]";
+			return os;
 		}
 	}
 }

@@ -44,6 +44,7 @@ SOFTWARE.
 
 
 #define CSR_ISOSTD 17
+#define CSR_SCHEDULER_TIME 14
 
 #define CSR_UTILITY 1
 #define CSR_DEBUG 1

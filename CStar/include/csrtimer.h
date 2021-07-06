@@ -80,7 +80,7 @@ namespace csr
 		{
 			std::chrono::steady_clock::time_point tStart = std::chrono::steady_clock::now();
 			float ms = (float)t * (float)timeScale::num * 1000.0f / (float)timeScale::den;
-			if (ms > 20.0f)
+			if (ms > 2.f * CSR_SCHEDULER_TIME)
 				std::this_thread::sleep_for(std::chrono::duration<unsigned long long, timeScale>(t) - std::chrono::milliseconds(20));
 			while (std::chrono::duration_cast<std::chrono::duration<unsigned long long, timeScale>>(std::chrono::steady_clock::now() - tStart).count() < t);
 		}
@@ -99,7 +99,7 @@ namespace csr
 		{
 			long long dt = std::chrono::duration_cast<std::chrono::duration<unsigned long long, timeScale>>(std::chrono::steady_clock::now() - tClock).count();
 			float ms = (float)(t - dt) * (float)timeScale::num * 1000.0f / (float)timeScale::den;
-			if (ms > 20)
+			if (ms > 2.f * CSR_SCHEDULER_TIME)
 				std::this_thread::sleep_for(std::chrono::duration<unsigned long long, timeScale>((long long)ms) - std::chrono::milliseconds(20));
 			while (std::chrono::duration_cast<std::chrono::duration<unsigned long long, timeScale>>(std::chrono::steady_clock::now() - tClock).count() < t);
 			tClock = std::chrono::steady_clock::now();
