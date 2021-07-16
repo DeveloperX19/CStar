@@ -43,13 +43,14 @@ SOFTWARE.
 
 
 
-#define CSR_ISOSTD 17
+#define CSR_ISOSTD 20
 #define CSR_SCHEDULER_TIME 14
 
-#define CSR_UTILITY 1
-#define CSR_DEBUG 1
-#define CSR_TODO 0
+#define CSR_IS_RELEASE 0
+#define CSR_RESOLVE_TODO 0
+#define CSR_RESOLVE_WARN 0
 
+#define CSR_USE_UTILITY 1
 
 
 
@@ -63,23 +64,39 @@ SOFTWARE.
 #include <chrono>
 
 
+#if CSR_ISOSTD >= 14
+#define csrctex constexpr
+#else
+#define csrctex
+#endif
 
 #if CSR_ISOSTD >= 17
-#define csrndc(x) [[nodiscard(x)]]
+#define csrndc(x) [[nodiscard]]
+#define csrifcx(arg) if constexpr(arg)
 #else
 #define csrndc(x)
+#define csrifcx(arg) if
+#endif
+
+#if CSR_ISOSTD >= 20
+#undef csrndc
+#define csrndc(x) [[nodiscard(x)]]
+#endif
+
+#if CSR_IS_RELEASE
+#define CSR_RESOLVE_TODO 1
+#define CSR_RESOLVE_WARN 1
 #endif
 
 
+#if CSR_USE_UTILITY
 
-
-#if CSR_UTILITY
-
-#define TODO static_assert(!CSR_TODO,"Unresolved TODO-Item!")
+#define TODO static_assert(!CSR_RESOLVE_TODO,"Unresolved TODO-Item!")
+#define static_warnif(cond) static_assert(!(cond) || !CSR_RESOLVE_WARN,"Unresolved static warning!")
 
 #define range(var, len) for(size_t var = 0; var < (len); var++)
 
-#if CSR_DEBUG
+#if !CSR_IS_RELEASE
 #define dlog(var) std::cout << std::endl << "DLog - " << __FILE__ << " | " << __LINE__ << ":  " << #var << " = " << (var) << std::endl
 #else
 #define dlog(var) 
@@ -174,9 +191,9 @@ namespace csr
 		//#include "csrmask.h"
 		template <typename baseType, typename = typename std::enable_if< \
 			std::is_enum<baseType>::value&& \
-			!std::is_convertible<baseType, std::underlying_type_t<baseType>>::value&& \
-			!std::is_same<std::underlying_type_t<baseType>, bool>::value \
-			, baseType>::type> struct mask;
+			!std::is_convertible<baseType, typename std::underlying_type<baseType>::type>::value&& \
+			!std::is_same<typename std::underlying_type<baseType>::type, bool>::value \
+			, bool>::type> class mask;
 
 	}
 

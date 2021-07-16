@@ -25,7 +25,7 @@ namespace csr
 			void resume() noexcept;
 			void pause() noexcept;
 			csrndc("useless call of function: long long getTime()")
-			constexpr long long getTime() const noexcept;
+			long long getTime() const noexcept;
 			static void wait(unsigned long long t) noexcept;
 			void clock() noexcept;
 			void clock(unsigned long long t) noexcept;
@@ -66,7 +66,7 @@ namespace csr
 
 		///Returns the (time * timeScale) that the Timer has been active(unpaused) for
 		template<typename timeScale>
-		constexpr long long Timer<timeScale>::getTime() const noexcept
+		long long Timer<timeScale>::getTime() const noexcept
 		{
 			if (active)
 				return (tTotal + std::chrono::duration_cast<std::chrono::duration<long long, timeScale>>(std::chrono::steady_clock::now() - tOld)).count();

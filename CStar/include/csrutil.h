@@ -12,34 +12,34 @@ namespace csr
 			///operator overload for scoped enums
 			template <typename enumT, typename std::enable_if<
 				std::is_enum<enumT>::value &&
-				!std::is_same<std::underlying_type_t<enumT>, bool>::value, bool>::type = 0>
+				!std::is_same<typename std::underlying_type<enumT>::type, bool>::value, bool>::type = 0>
 			inline constexpr enumT operator| (const enumT& a, const enumT& b)
 			{
-				return (enumT)((std::underlying_type_t<enumT>)a | (std::underlying_type_t<enumT>)b);
+				return (enumT)((typename std::underlying_type<enumT>::type)a | (typename std::underlying_type<enumT>::type)b);
 			}
 			///operator overload for scoped enums
 			template <typename enumT, typename std::enable_if<
 				std::is_enum<enumT>::value &&
-				!std::is_same<std::underlying_type_t<enumT>, bool>::value, bool>::type = 0>
+				!std::is_same<typename std::underlying_type<enumT>::type, bool>::value, bool>::type = 0>
 			inline constexpr enumT operator& (const enumT& a, const enumT& b)
 			{
-				return (enumT)((std::underlying_type_t<enumT>)a & (std::underlying_type_t<enumT>)b);
+				return (enumT)((typename std::underlying_type<enumT>::type)a & (typename std::underlying_type<enumT>::type)b);
 			}
 			///operator overload for scoped enums
 			template <typename enumT, typename std::enable_if<
 				std::is_enum<enumT>::value &&
-				!std::is_same<std::underlying_type_t<enumT>, bool>::value, bool>::type = 0>
+				!std::is_same<typename std::underlying_type<enumT>::type, bool>::value, bool>::type = 0>
 			inline constexpr enumT operator^ (const enumT& a, const enumT& b)
 			{
-				return (enumT)((std::underlying_type_t<enumT>)a ^ (std::underlying_type_t<enumT>)b);
+				return (enumT)((typename std::underlying_type<enumT>::type)a ^ (typename std::underlying_type<enumT>::type)b);
 			}
 			///operator overload for scoped enums
 			template <typename enumT, typename std::enable_if<
 				std::is_enum<enumT>::value &&
-				!std::is_same<std::underlying_type_t<enumT>, bool>::value, bool>::type = 0>
+				!std::is_same<typename std::underlying_type<enumT>::type, bool>::value, bool>::type = 0>
 			inline constexpr enumT operator~ (const enumT& a)
 			{
-				return (enumT)(~(std::underlying_type_t<enumT>)a);
+				return (enumT)(~(typename std::underlying_type<enumT>::type)a);
 			}
 		}
 
