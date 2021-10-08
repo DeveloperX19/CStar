@@ -38,30 +38,77 @@ SOFTWARE.
 
 
 
- *		=========================================>	Individual Setup Macros	===============================================>
- */
-
-
-
-#define CSR_ISOSTD 20
-#define CSR_SCHEDULER_TIME 14
-
-#define CSR_IS_RELEASE 0
-#define CSR_RESOLVE_TODO 0
-#define CSR_RESOLVE_WARN 0
-
-#define CSR_USE_UTILITY 1
-
-
-
-/*
  *		===================================================================================================================>
  */
 
+#ifndef CSTARLIBRARY_SETUP
+// Make sure to create the "csrlib.h" setup-file somewhere in your project
+// and use		#include "csrlib.h"
+// instead of	#include "csrfwdecl.h"
+static_assert(false, "#include csrlib.h");
+
+#define CSR_ISOSTD 11
+#define CSR_SCHEDULER_TIME 14
+#define CSR_IS_RELEASE 0
+#define CSR_RESOLVE_TODO 0
+#define CSR_RESOLVE_WARN 0
+#define CSR_USE_UTILITY 1
+
+#else
+
+#ifndef CSR_ISOSTD
+// Make sure to #define CSR_ISOSTD according to your project
+// inside "csrlib.h"
+// Are you including an uptodate version of csrlib.h ?
+static_assert(false, "incorrect csrlib.h");
+#define CSR_ISOSTD 11
+#endif
+#ifndef CSR_SCHEDULER_TIME
+// Make sure to #define CSR_SCHEDULER_TIME according to your project
+// inside "csrlib.h"
+// Are you including an uptodate version of csrlib.h ?
+static_assert(false, "incorrect csrlib.h");
+#define CSR_SCHEDULER_TIME 14
+#endif
+#ifndef CSR_IS_RELEASE
+// Make sure to #define CSR_IS_RELEASE according to your project
+// inside "csrlib.h"
+// Are you including an uptodate version of csrlib.h ?
+static_assert(false, "incorrect csrlib.h");
+#define CSR_IS_RELEASE 0
+#endif
+#ifndef CSR_RESOLVE_TODO
+// Make sure to #define CSR_RESOLVE_TODO according to your project
+// inside "csrlib.h"
+// Are you including an uptodate version of csrlib.h ?
+static_assert(false, "incorrect csrlib.h");
+#define CSR_RESOLVE_TODO 0
+#endif
+#ifndef CSR_RESOLVE_WARN
+// Make sure to #define CSR_RESOLVE_WARN according to your project
+// inside "csrlib.h"
+// Are you including an uptodate version of csrlib.h ?
+static_assert(false, "incorrect csrlib.h");
+#define CSR_RESOLVE_WARN 0
+#endif
+#ifndef CSR_USE_UTILITY
+// Make sure to #define CSR_USE_UTILITY according to your project
+// inside "csrlib.h"
+// Are you including an uptodate version of csrlib.h ?
+static_assert(false, "incorrect csrlib.h");
+#define CSR_USE_UTILITY 1
+#endif
+
+#endif
+
+
+
+#include <cstddef>
 #include <bitset>
 #include <type_traits>
 #include <thread>
 #include <chrono>
+#include <ostream>
 
 
 #if CSR_ISOSTD >= 14
@@ -94,7 +141,7 @@ SOFTWARE.
 #define TODO static_assert(!CSR_RESOLVE_TODO,"Unresolved TODO-Item!")
 #define static_warnif(cond) static_assert(!(cond) || !CSR_RESOLVE_WARN,"Unresolved static warning!")
 
-#define range(var, len) for(size_t var = 0; var < (len); var++)
+#define range(var, len) for(std::size_t var = 0; var < (len); var++)
 
 #if !CSR_IS_RELEASE
 #define dlog(var) std::cout << std::endl << "DLog - " << __FILE__ << " | " << __LINE__ << ":  " << #var << " = " << (var) << std::endl
@@ -165,22 +212,22 @@ namespace csr
 	{
 		namespace tfloat
 		{
-			//#include "csrtfloat.h"
+			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool equal(BASE a, BASE b) noexcept;
-			//#include "csrtfloat.h"
+			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool not_equal(BASE a, BASE b) noexcept;
-			//#include "csrtfloat.h"
+			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool greater(BASE a, BASE b) noexcept;
-			//#include "csrtfloat.h"
+			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool less(BASE a, BASE b) noexcept;
-			//#include "csrtfloat.h"
+			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool greater_equal(BASE a, BASE b) noexcept;
-			//#include "csrtfloat.h"
+			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool less_equal(BASE a, BASE b) noexcept;
 		}
@@ -188,58 +235,90 @@ namespace csr
 
 	namespace data
 	{
-		//#include "csrmask.h"
-		template <typename baseType, typename = typename std::enable_if< \
-			std::is_enum<baseType>::value&& \
-			!std::is_convertible<baseType, typename std::underlying_type<baseType>::type>::value&& \
-			!std::is_same<typename std::underlying_type<baseType>::type, bool>::value \
-			, bool>::type> class mask;
-
+		// #include "csrmask.h"
+		template <typename baseType, typename = typename std::enable_if<
+			std::is_enum<baseType>::value &&
+			!std::is_convertible<baseType, typename std::underlying_type<baseType>::type>::value &&
+			!std::is_same<typename std::underlying_type<baseType>::type, bool>::value
+			, void>::type> class mask;
+		
 	}
 
 	namespace util
 	{
 		namespace enumc
 		{
+			// #include "csruitl.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator| (const enumT& a, const enumT& b);
+			// #include "csruitl.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator& (const enumT& a, const enumT& b);
+			// #include "csruitl.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator^ (const enumT& a, const enumT& b);
+			// #include "csruitl.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator~ (const enumT& a);
 		}
-	}
-		
-	namespace tool
-	{
-		//#include "csrtimer.h"
-		template <typename timeScale = csr::args::TTS::ms, typename = typename std::enable_if< \
-			std::is_same<timeScale, std::nano>::value || \
-			std::is_same<timeScale, std::micro>::value || \
-			std::is_same<timeScale, std::milli>::value || \
-			std::is_same<timeScale, std::ratio<1>>::value || \
-			std::is_same<timeScale, std::ratio<60, 1>>::value || \
-			std::is_same<timeScale, std::ratio<3600, 1>>::value \
-			, bool>::type> class Timer;
+
+		// #include "csrtimer.h"
+		template <typename timeScale = csr::args::TTS::ms, typename = typename std::enable_if<
+			std::is_same<timeScale, std::nano>::value ||
+			std::is_same<timeScale, std::micro>::value ||
+			std::is_same<timeScale, std::milli>::value ||
+			std::is_same<timeScale, std::ratio<1>>::value ||
+			std::is_same<timeScale, std::ratio<60, 1>>::value ||
+			std::is_same<timeScale, std::ratio<3600, 1>>::value
+			, void>::type> class Timer;
+
+		// #include "csrcstr.h"
+		inline std::size_t cstrlen(const char* str) noexcept;
+		// #include "csrcstr.h"
+		inline std::size_t cstrnlen(const char* str, std::size_t maxCnt) noexcept;
+		// #include "csrcstr.h"
+		inline void cstrcpy(char*& dest, const char* source) noexcept;
+		// #include "csrcstr.h"
+		inline void cstrncpy(char*& dest, const char* source, const std::size_t maxCnt) noexcept;
+		// #include "csrcstr.h"
+		inline bool cstreq(const char* str1, const char* str2) noexcept;
+		// #include "csrcstr.h"
+		inline bool cstrprfx(const char* pre, const char* str) noexcept;
+		// #include "csrcstr.h"
+		inline bool cstrsufx(const char* suf, const char* str) noexcept;
+		// #include "csrcstr.h"
+		template<typename IntType = int>
+		inline typename std::enable_if<std::is_integral<IntType>::value, IntType>::type cstrint(const char* str) noexcept;
+		// #include "csrcstr.h"
+		inline unsigned int cstrsplit(const char* str, char**& subStrs, char delim = ' ') noexcept;
+		// #include "csrcstr.h"
+		inline unsigned int cstrdiff(const char* str1, const char* str2) noexcept;
+		// #include "csrcstr.h"
+		inline char** cstralignL(const char* strs[], const std::size_t& numStrs, const std::size_t& targetLen = 0) noexcept;
+		// #include "csrcstr.h"
+		inline char** cstralignR(const char* strs[], const std::size_t& numStrs, const std::size_t& targetLen = 0) noexcept;
+		// #include "csrcstr.h"
+		inline char** cstralignC(const char* strs[], const std::size_t& numStrs, const std::size_t& targetLen = 0) noexcept;
+		// #include "csrcstr.h"
+		inline char* cstrblocktext(const char* strs[], const std::size_t& numStrs, std::size_t targetLen) noexcept;
+
+		// #include "csrprompt.h"
+		class CmdArgs;
+		// #include "csrprompt.h"
+		class CmdCenter;
 	}
 }
 
 
 
-/*
- *		=========================================>	    C-Star Helpers		===============================================>
- */
-
-
-/*
- *	This namespace contains functions and structs reserved for the implementation of the csrlib.h include.
- *	It is strongly discouraged to use these manually.
- */
-namespace csr_details
+namespace cstar
 {
-
+	using namespace csr::args;
+	using namespace csr::math;
+	using namespace csr::math::tfloat;
+	using namespace csr::data;
+	using namespace csr::util;
+	using namespace csr::util::enumc;
 }
 
 

@@ -1,8 +1,8 @@
 #include <iostream>
 #include <algorithm>
 #include <cstdlib>
-#include "../include/csrlib.h"
-#include "../include/csrtimer.h"
+#include "../csrlib.h"
+#include "csrtimer.h"
 
 //bubble sort implementation
 void garbageSort(int* arr, size_t len)
@@ -19,7 +19,7 @@ int main()
 	std::cout << ">--  C-Star Timer  --<" << std::endl;
 
 	constexpr size_t arrLen = 5000;
-	csr::tool::Timer<csr::args::TTS::ms> watch;
+	cstar::Timer<cstar::TTS::ms> watch;
 
 	int* data = new int[arrLen];
 
