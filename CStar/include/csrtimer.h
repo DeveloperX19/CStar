@@ -100,11 +100,13 @@ namespace csr
 		void Timer<timeScale>::clock(unsigned long long t) noexcept
 		{
 			long long dt = std::chrono::duration_cast<std::chrono::duration<unsigned long long, timeScale>>(std::chrono::steady_clock::now() - tClock).count();
-			if (dt >= t) return;
-			float ms = (float)(t - dt) * (float)timeScale::num * 1000.0f / (float)timeScale::den;
-			if (ms > 2.f * CSR_SCHEDULER_TIME)
-				std::this_thread::sleep_for(std::chrono::duration<unsigned long long, std::milli>((unsigned long long)ms) - std::chrono::milliseconds(20));
-			while (std::chrono::duration_cast<std::chrono::duration<unsigned long long, timeScale>>(std::chrono::steady_clock::now() - tClock).count() < t);
+			if (dt < t)
+			{
+				float ms = (float)(t - dt) * (float)timeScale::num * 1000.0f / (float)timeScale::den;
+				if (ms > 2.f * CSR_SCHEDULER_TIME)
+					std::this_thread::sleep_for(std::chrono::duration<unsigned long long, std::milli>((unsigned long long)ms) - std::chrono::milliseconds(20));
+				while (std::chrono::duration_cast<std::chrono::duration<unsigned long long, timeScale>>(std::chrono::steady_clock::now() - tClock).count() < t);
+			}
 			tClock = std::chrono::steady_clock::now();
 		}
 	}
