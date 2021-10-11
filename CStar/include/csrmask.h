@@ -131,6 +131,10 @@ namespace csr
 	}
 }
 
+namespace cstar
+{
+	using csr::data::mask;
+}
 
-#endif
+	#endif
 #endif

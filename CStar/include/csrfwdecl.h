@@ -167,7 +167,6 @@ static_assert(false, "incorrect csrlib.h");
   */
 namespace csr
 {
-
 	namespace args
 	{
 
@@ -180,6 +179,7 @@ namespace csr
 				DYNAMIC = 1,
 			};
 		}
+
 		//[Binary Search Tree]
 		namespace BST
 		{
@@ -187,15 +187,19 @@ namespace csr
 			{
 				//Recommended for Read-Heavy Data
 				AVL = 2,
+
 				//Recommended for Write-Heavy Data
 				RB = 3,
+
 				//Recommended for Cache-Heavy Data
 				SPLAY = 4,
+
 				//Recommended for General & Big Data
 				//small cache: splay [supported by FIFO with requeue] + AVL [for big data] (evtl.) RB after [n] layers
 				HYBRID = 5
 			};
 		}
+		
 		//[Timer Time Scale]
 		namespace TTS
 		{
@@ -215,18 +219,23 @@ namespace csr
 			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool equal(BASE a, BASE b) noexcept;
+			
 			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool not_equal(BASE a, BASE b) noexcept;
+
 			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool greater(BASE a, BASE b) noexcept;
+
 			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool less(BASE a, BASE b) noexcept;
+
 			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool greater_equal(BASE a, BASE b) noexcept;
+
 			// #include "csrtfloat.h"
 			template <typename BASE = float, uint16_t nUnitAbsTol = 100, uint16_t nUnitRelTol = nUnitAbsTol, bool ignoreIEC559 = false, typename>
 			bool less_equal(BASE a, BASE b) noexcept;
@@ -251,12 +260,15 @@ namespace csr
 			// #include "csruitl.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator| (const enumT& a, const enumT& b);
+
 			// #include "csruitl.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator& (const enumT& a, const enumT& b);
+
 			// #include "csruitl.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator^ (const enumT& a, const enumT& b);
+
 			// #include "csruitl.h"
 			template <typename enumT, typename>
 			inline constexpr enumT operator~ (const enumT& a);
@@ -270,56 +282,63 @@ namespace csr
 			std::is_same<timeScale, std::ratio<1>>::value ||
 			std::is_same<timeScale, std::ratio<60, 1>>::value ||
 			std::is_same<timeScale, std::ratio<3600, 1>>::value
-			, void>::type> class Timer;
+			, void>::type> 
+		class Timer;
 
-		// #include "csrcstr.h"
-		inline std::size_t cstrlen(const char* str) noexcept;
-		// #include "csrcstr.h"
-		inline std::size_t cstrnlen(const char* str, std::size_t maxCnt) noexcept;
-		// #include "csrcstr.h"
-		inline void cstrcpy(char*& dest, const char* source) noexcept;
-		// #include "csrcstr.h"
-		inline void cstrncpy(char*& dest, const char* source, const std::size_t maxCnt) noexcept;
-		// #include "csrcstr.h"
-		inline bool cstreq(const char* str1, const char* str2) noexcept;
-		// #include "csrcstr.h"
-		inline bool cstrprfx(const char* pre, const char* str) noexcept;
-		// #include "csrcstr.h"
-		inline bool cstrsufx(const char* suf, const char* str) noexcept;
-		// #include "csrcstr.h"
-		template<typename IntType = int>
-		inline typename std::enable_if<std::is_integral<IntType>::value, IntType>::type cstrint(const char* str) noexcept;
-		// #include "csrcstr.h"
-		inline unsigned int cstrsplit(const char* str, char**& subStrs, char delim = ' ') noexcept;
-		// #include "csrcstr.h"
-		inline unsigned int cstrdiff(const char* str1, const char* str2) noexcept;
-		// #include "csrcstr.h"
-		inline char** cstralignL(const char* strs[], const std::size_t& numStrs, const std::size_t& targetLen = 0) noexcept;
-		// #include "csrcstr.h"
-		inline char** cstralignR(const char* strs[], const std::size_t& numStrs, const std::size_t& targetLen = 0) noexcept;
-		// #include "csrcstr.h"
-		inline char** cstralignC(const char* strs[], const std::size_t& numStrs, const std::size_t& targetLen = 0) noexcept;
-		// #include "csrcstr.h"
-		inline char* cstrblocktext(const char* strs[], const std::size_t& numStrs, std::size_t targetLen) noexcept;
+		namespace cstr
+		{
+			// #include "csrcstr.h"
+			inline std::size_t length(const char* str) noexcept;
+			
+			// #include "csrcstr.h"
+			inline std::size_t length(const char* str, std::size_t maxCnt) noexcept;
 
+			// #include "csrcstr.h"
+			inline void copy(char*& dest, const char* source) noexcept;
+
+			// #include "csrcstr.h"
+			inline void copy(char*& dest, const char* source, const std::size_t maxCnt) noexcept;
+
+			// #include "csrcstr.h"
+			inline bool equal(const char* str1, const char* str2) noexcept;
+
+			// #include "csrcstr.h"
+			inline bool prefix(const char* pre, const char* str) noexcept;
+
+			// #include "csrcstr.h"
+			inline bool suffix(const char* suf, const char* str) noexcept;
+
+			// #include "csrcstr.h"
+			template<typename IntType = int, typename>
+			inline IntType toInt(const char* str) noexcept;
+
+			// #include "csrcstr.h"
+			inline unsigned int split(const char* str, char**& subStrs, char delim = ' ') noexcept;
+
+			// #include "csrcstr.h"
+			inline unsigned int distance(const char* str1, const char* str2) noexcept;
+
+			// #include "csrcstr.h"
+			inline char** alignL(const char* strs[], const std::size_t& numStrs, const std::size_t& targetLen = 0) noexcept;
+
+			// #include "csrcstr.h"
+			inline char** alignR(const char* strs[], const std::size_t& numStrs, const std::size_t& targetLen = 0) noexcept;
+
+			// #include "csrcstr.h"
+			inline char** alignC(const char* strs[], const std::size_t& numStrs, const std::size_t& targetLen = 0) noexcept;
+
+			// #include "csrcstr.h"
+			inline char* blocktext(const char* strs[], const std::size_t& numStrs, std::size_t targetLen) noexcept;
+		}
+		
 		// #include "csrprompt.h"
 		class CmdArgs;
+		
 		// #include "csrprompt.h"
 		class CmdCenter;
 	}
 }
 
-
-
-namespace cstar
-{
-	using namespace csr::args;
-	using namespace csr::math;
-	using namespace csr::math::tfloat;
-	using namespace csr::data;
-	using namespace csr::util;
-	using namespace csr::util::enumc;
-}
-
+namespace cstar {}
 
 #endif

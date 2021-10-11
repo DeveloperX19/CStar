@@ -112,6 +112,10 @@ namespace csr
 	}
 }
 
+namespace cstar
+{
+	using csr::util::Timer;
+}
 
-#endif
+	#endif
 #endif

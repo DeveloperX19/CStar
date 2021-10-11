@@ -103,7 +103,7 @@ namespace csr
                 template<typename IntType = int, typename std::enable_if<std::is_integral<IntType>::value, bool>::type = 0>
                 IntType toInt() const noexcept
                 {
-                    if (value) return cstrint<IntType>(value);
+                    if (value) return csr::util::cstr::toInt<IntType>(value);
                     else return 0;
                 }
             };
@@ -171,11 +171,11 @@ namespace csr
         inline CmdCenter::CmdCenter(const char* _query, const char* _errnotfound, const char* _simfound, void* _envrment)
         {
             query = nullptr;
-            csr::util::cstrcpy(query, _query);
+            csr::util::cstr::copy(query, _query);
             notfoundStr = nullptr;
-            csr::util::cstrcpy(notfoundStr, _errnotfound);
+            csr::util::cstr::copy(notfoundStr, _errnotfound);
             similarStr = nullptr;
-            csr::util::cstrcpy(similarStr, _simfound);
+            csr::util::cstr::copy(similarStr, _simfound);
             envrment = _envrment;
         }
 
@@ -194,19 +194,19 @@ namespace csr
             {
                 delete[] query;
                 query = nullptr;
-                csr::util::cstrcpy(query, _query);
+                csr::util::cstr::copy(query, _query);
             }
             if (_errnotfound)
             {
                 delete[] notfoundStr;
                 notfoundStr = nullptr;
-                csr::util::cstrcpy(notfoundStr, _errnotfound);
+                csr::util::cstr::copy(notfoundStr, _errnotfound);
             }
             if (_simfound)
             {
                 delete[] similarStr;
                 similarStr = nullptr;
-                csr::util::cstrcpy(similarStr, _simfound);
+                csr::util::cstr::copy(similarStr, _simfound);
             }
         }
 
@@ -216,9 +216,9 @@ namespace csr
         {
             cmdListItem newItem;
             newItem.cmd = nullptr;
-            csr::util::cstrcpy(newItem.cmd, cmd);
+            csr::util::cstr::copy(newItem.cmd, cmd);
             newItem.exe = exe;
-            newItem.sLen = (unsigned int)csr::util::cstrlen(cmd);
+            newItem.sLen = (unsigned int)csr::util::cstr::length(cmd);
 
             cmdL.push_back(std::move(newItem));
         }
@@ -231,13 +231,13 @@ namespace csr
             std::string inputBuffer;
             std::getline(std::cin, inputBuffer);
             char** argv;
-            unsigned int argc = csr::util::cstrsplit(inputBuffer.c_str(), argv);
+            unsigned int argc = csr::util::cstr::split(inputBuffer.c_str(), argv);
             if (argc == 0) return false;
-            std::size_t arg0len = csr::util::cstrlen(argv[0]);
+            std::size_t arg0len = csr::util::cstr::length(argv[0]);
 
             for (const cmdListItem& command : cmdL)
             {
-                if (csr::util::cstreq(argv[0], command.cmd))
+                if (csr::util::cstr::equal(argv[0], command.cmd))
                 {
                     command.exe({ argc, argv, envrment });
                     return true;
@@ -248,7 +248,7 @@ namespace csr
             {
                 if (arg0len < (std::size_t)command.sLen + 100)
                 {
-                    if (csr::util::cstrdiff(argv[0], command.cmd) <= (command.sLen + 1) / 2)
+                    if (csr::util::cstr::distance(argv[0], command.cmd) <= (command.sLen + 1) / 2)
                     {
                         std::cout << similarStr << command.cmd << std::endl;
                     }
@@ -264,6 +264,11 @@ namespace csr
     }
 }
 
+namespace cstar
+{
+    using csr::util::CmdCenter;
+    using csr::util::CmdArgs;
+}
 
-#endif
+    #endif
 #endif

@@ -156,6 +156,18 @@ namespace csr
 	}
 }
 
+namespace cstar
+{
+	namespace tfloat
+	{
+		using csr::math::tfloat::equal;
+		using csr::math::tfloat::not_equal;
+		using csr::math::tfloat::greater;
+		using csr::math::tfloat::less;
+		using csr::math::tfloat::greater_equal;
+		using csr::math::tfloat::less_equal;
+	}
+}
 
-#endif
+	#endif
 #endif

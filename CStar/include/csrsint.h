@@ -1,5 +1,8 @@
 #ifndef CSTARLIBRARY_SINT
 #define CSTARLIBRARY_SINT
+	#ifndef CSTARLIBRARY
+	static_assert(false, "#include 'csrlib.h'");
+	#else
 
 //using type = ...      -> mask<>::type
 
@@ -9,7 +12,7 @@
 //Unsigned: res = a # b;
 //	(res	<	a) -> overflow(+)
 //	(b		>	a) -> underflow(-)
-//	(res/a	!=	b) -> overflow(*)
+//	(res/a	!=	b) -> overflow(*)	// assert a != 0 (div 0)
 //	(b		==	0) -> divzero(/)
 //	(b		==	0) -> modzero(%)
 //...
@@ -27,18 +30,16 @@
 
 /*
 int safe_int_div(int * res, int op1, int op2) {
-  if (op2 == 0) {
-    return 1;
-  }
-  // 2's complement detection
-  #if (INT_MIN != -INT_MAX)
-    if (op1 == INT_MIN && op2 == -1)  {
-      return 1;
-    }
-  #endif
-  *res = op1 / op2;
-  return 0;
+	if (op2 == 0) {
+	return 1;
+	}
+	if (op1 == consteval(std::numeric_limits<T>::min()) && op2 == -1)  {
+	  return 1;
+	}
+	*res = op1 / op2;
+	return 0;
 }
 */
 
+	#endif
 #endif

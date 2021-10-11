@@ -46,6 +46,16 @@ namespace csr
 	}
 }
 
+namespace cstar
+{
+	namespace enumc
+	{
+		using csr::util::enumc::operator|;
+		using csr::util::enumc::operator&;
+		using csr::util::enumc::operator^;
+		using csr::util::enumc::operator~;
+	}
+}
 
-#endif
+	#endif
 #endif
