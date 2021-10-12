@@ -1,5 +1,8 @@
 #ifndef CSTARLIBRARY_MATH
 #define CSTARLIBRARY_MATH
-#include "csrlib.h"
+	#ifndef CSTARLIBRARY
+	static_assert(false, "#include 'csrlib.h'");
+	#else
 
+	#endif
 #endif
