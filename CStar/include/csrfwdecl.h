@@ -339,6 +339,12 @@ namespace csr
 	}
 }
 
-namespace cstar {}
+namespace cstar
+{
+	namespace args
+	{
+		using namespace csr::args;
+	}
+}
 
 #endif
