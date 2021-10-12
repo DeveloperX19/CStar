@@ -19,7 +19,7 @@ int main()
 	std::cout << ">--  C-Star Timer  --<" << std::endl;
 
 	constexpr size_t arrLen = 5000;
-	cstar::Timer<cstar::TTS::ms> watch;
+	cstar::Timer<cstar::args::TTS::ms> watch;
 
 	int* data = new int[arrLen];
 
